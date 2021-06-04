@@ -1,5 +1,6 @@
 use crate::GameState;
 use bevy::prelude::*;
+use wasm_bindgen::prelude::*;
 
 pub struct ActionsPlugin;
 
@@ -11,12 +12,20 @@ impl Plugin for ActionsPlugin {
     }
 }
 
+#[wasm_bindgen(module = "/src/progress.js")]
+extern "C" {
+    pub fn update_progress(percentage: f32);
+}
+
 #[derive(Default)]
 pub struct Actions {
     pub player_movement: Option<Vec2>,
 }
 
-fn set_movement_actions(mut actions: ResMut<Actions>, keyboard_input: Res<Input<KeyCode>>) {
+fn set_movement_actions(
+    mut actions: ResMut<Actions>,
+    keyboard_input: Res<Input<KeyCode>>
+    ) {
     if keyboard_input.just_released(KeyCode::W)
         || keyboard_input.pressed(KeyCode::W)
         || keyboard_input.just_released(KeyCode::A)
@@ -31,17 +40,23 @@ fn set_movement_actions(mut actions: ResMut<Actions>, keyboard_input: Res<Input<
         if keyboard_input.just_released(KeyCode::W) || keyboard_input.just_released(KeyCode::S) {
             if keyboard_input.pressed(KeyCode::W) {
                 player_movement.y = 1.;
+                update_progress(player_movement.y);
             } else if keyboard_input.pressed(KeyCode::S) {
                 player_movement.y = -1.;
+                update_progress(player_movement.y);
             } else {
                 player_movement.y = 0.;
+                update_progress(player_movement.y);
             }
         } else if keyboard_input.just_pressed(KeyCode::W) {
             player_movement.y = 1.;
+            update_progress(player_movement.y);
         } else if keyboard_input.just_pressed(KeyCode::S) {
             player_movement.y = -1.;
+            update_progress(player_movement.y);
         } else {
             player_movement.y = actions.player_movement.unwrap_or(Vec2::ZERO).y;
+            update_progress(player_movement.y);
         }
 
         if keyboard_input.just_released(KeyCode::D) || keyboard_input.just_released(KeyCode::A) {

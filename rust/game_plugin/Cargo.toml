@@ -2,7 +2,7 @@
 name = "game_plugin"
 version = "0.1.0"
 publish = false
-authors = ["Niklas Eicker <git@nikl.me>"] # ToDo: you are the author ;)
+authors = ["Ricardo W Bento <roicoroy@yahoo.com.br>"]
 edition = "2018"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
@@ -24,3 +24,5 @@ native = [
 bevy = { version = "0.5.0", default-features = false }
 bevy_kira_audio = { version = "0.4.0" }
 rand = "0.8.3"
+wee_alloc = { version = "0.4.5", optional = true }
+wasm-bindgen = "0.2.69"
