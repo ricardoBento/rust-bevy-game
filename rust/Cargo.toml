@@ -6,10 +6,11 @@ authors = [
     "Ricardo W Bento <roicoroy@yahoo.com.br>",
 ]
 edition = "2018"
+categories = ["wasm"]
+build = "src/lib.rs"
 
 [profile.dev]
 opt-level = 1
-
 
 [features]
 default = [
@@ -33,6 +34,12 @@ dev = [
     "bevy/dynamic",
     "native",
 ]
+
+[lib]
+crate-type = ["cdylib"]
+
+[profile.release]
+lto = true
 
 [dependencies]
 bevy = { version = "0.5.0", default-features = false }

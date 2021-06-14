@@ -12,31 +12,32 @@ const loadImage = async () => {
 
   const lib = await Julia;
 
-  submit.addEventListener("click", async (event) => {
-    event.preventDefault();
+  // submit.addEventListener("click", async (event) => {
+  //   event.preventDefault();
 
-    if (
-      !widthElement.value ||
-      !heightElement.value ||
-      !realElement.value ||
-      !imaginaryElement.value
-    ) {
-      return;
-    }
+  //   if (
+  //     !widthElement.value ||
+  //     !heightElement.value ||
+  //     !realElement.value ||
+  //     !imaginaryElement.value
+  //   ) {
+  //     return;
+  //   }
 
-    const data = {
-      width: +widthElement.value,
-      height: +heightElement.value,
-      realPart: +realElement.value,
-      imaginaryPart: +imaginaryElement.value,
-    };
-    const base64 = await lib.generate(data);
-    const imgPath = "data:image/png;base64," + base64;
+  //   const data = {
+  //     width: +widthElement.value,
+  //     height: +heightElement.value,
+  //     realPart: +realElement.value,
+  //     imaginaryPart: +imaginaryElement.value,
+  //   };
+  //   const base64 = await lib.generate(data);
+  //   const imgPath = "data:image/png;base64," + base64;
 
-    output.setAttribute("src", imgPath);
-  });
+  //   output.setAttribute("src", imgPath);
+  // });
 
   document.addEventListener("update-progress", (event) => {
+    console.log(event);
     progress.value = event.detail.message();
   });
 };
